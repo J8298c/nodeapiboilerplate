@@ -1,15 +1,13 @@
 const mongoose = require('mongoose');
 const mocha = require('mocha');
 const chai = require('chai');
-const express = require('express');
+const app = require('../server');
 const Workout = require('../api/models/workoutModel');
 const assert = require('assert');
 const faker = require('faker');
 const chaiHttp = require('chai-http');
-const port = process.env.PORT || 8081;
 const testDB = 'mongodb://localhost/apollotesting';
 const should = chai.should();
-const app = express();
 chai.use(chaiHttp);
 
 function seedWorkouts(){
@@ -112,4 +110,18 @@ describe('testing the closeServer function', ()=>{
 });
 
 
+describe('Testing Endpoints for api', ()=> {
+    before('Starts the server and DB', () => {
+        runServer(testDB, port);
+    });
+    after('Closes the server', () => {
+        closeServer();
+    });
+    beforeEach('Adds workouts to the DB', () => {
+        seedWorkouts();
+    });
+    afterEach('Drops the test DB to start fresh', () => {
+        eraseDB();
+    });
+    )}
 
