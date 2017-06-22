@@ -2,41 +2,46 @@ const mongoose = require('mongoose');
 const mocha = require('mocha');
 const chai = require('chai');
 const express = require('express');
+const Workout = require('../api/models/workoutModel');
 const assert = require('assert');
-const Workouts = require('../api/models/workoutModel');
 const faker = require('faker');
-
+const chaiHttp = require('chai-http');
 const port = process.env.PORT || 8081;
 const testDB = 'mongodb://localhost/apollotesting';
 const should = chai.should();
 const app = express();
+chai.use(chaiHttp);
 
-function seedData(){
-    let name = faker.name.firstName();
-    let reps = faker.random.number();
-    let sets = faker.random.number();
-    let seededWorkouts = [];
-
+function seedWorkouts(){
+    const seedData = [];
+    const name = faker.name.firstName();
+    const reps = faker.random.number();
+    const sets = faker.random.number();
     for(let i = 0; i < 4; i++){
-        seededWorkouts.push({
+        seedData.push({
             name: name,
             reps: reps,
             sets: sets
-        });
+        })
     }
-    Workouts.insertMany(seededWorkouts);
+    Workout.insertMany(seedData, (err, workout)=>{
+        if(err){
+            console.log(err);
+        } else {
+            console.log(`saved ${workout}`);
+        }
+    });
 }
 
-//setting up the server
 let server;
-function runServer(databaseUrl, port){
+function runServer(DBurl, port){
     return new Promise((resolve, reject)=>{
-        mongoose.connect(databaseUrl, err =>{
+        mongoose.connect(DBurl, err => {
             if(err){
                 return reject(err);
             }
             server = app.listen(port, ()=>{
-                console.log(`app is listening on port ${port}`);
+                console.log(`listening on port ${port}`);
                 resolve();
             })
                 .on('error', err =>{
@@ -49,8 +54,9 @@ function runServer(databaseUrl, port){
 
 function eraseDB(){
     return new Promise((resolve, reject)=>{
-        console.warn('Deleting database');
+        console.warn('Deleting DB');
         mongoose.connection.dropDatabase()
+            .then(result => resolve(result))
             .then(result => resolve(result))
             .catch(err => reject(err))
     });
@@ -58,39 +64,52 @@ function eraseDB(){
 
 function closeServer(){
     return mongoose.disconnect()
-        .then(()=>{
-            return new Promise((resolve, reject)=>{
-                console.log('closing server');
-                server.close(err =>{
-                    if(err){
-                        return reject(err);
-                    }
-                    resolve();
-                });
-            });
-        });
+        .then((err)=>{
+            if (err){
+                console.log(err);
+            } else {
+                return new Promise((resolve, reject)=>{
+                    console.log('closing server');
+                    server.close( err=>{
+                        if(err){
+                            return reject(err);
+                        } else {
+                            resolve();
+                        }
+                    })
+                })
+            }
+        })//need try and catch block alongside then
 }
 
-
-//api test //
-
-describe('Testing Api endpoints', ()=>{
+describe('testing workout endpoints', ()=>{
     before(()=>{
+        return runServer(testDB, port)
+    });
+});
+describe('testing the runServer function', ()=>{
+    it('should start the test server', ()=>{
         return runServer(testDB, port);
-    });
-    beforeEach(()=>{
-        return seedData();
-    });
-    afterEach(()=>{
-        return eraseDB();
-    });
-    after(()=>{
-        return closeServer();
-    });
-
-    describe('User get request', ()=>{
-        it('should return all users in the DB', ()=>{
-            return Workouts.count();
-        });
     })
 });
+describe('testing seedWorkouts function', ()=>{
+    it('should add workouts to the DB', ()=>{
+        runServer(testDB, port);
+        return seedWorkouts()
+    })
+});
+describe('testing the erase db function', ()=>{
+    it('should drop the database', ()=>{
+        runServer(testDB, port);
+        return eraseDB();
+    })
+});
+describe('testing the closeServer function', ()=>{
+    it('should close the server', ()=>{
+        runServer(testDB, port);
+        return closeServer();
+    })
+});
+
+
+
