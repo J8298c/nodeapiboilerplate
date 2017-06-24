@@ -1,24 +1,21 @@
+"use strict";
 const express = require('express');
+const bodyParser = require('body-parser');
 const port = process.env.PORT || 8080;
 const mongoose = require('mongoose');
-const Workout = require('./api/models/workoutModel');
-const bodyParser = require('body-parser');
-const db = require('./config/db');
-
 const app = express();
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use((req, res)=>{
-   res.status(404).send({url: req.originalUrl + 'not found'});
-});
+
+
 
 mongoose.Promise = global.Promise;
-
-mongoose.connect(db.url);
-
-const routes = require('./api/routes/workoutRoutes');
-routes(app);
+mongoose.connect('mongodb://localhost:27017/thunderhammer');
+const workoutRoute = require('./api/routes/workout_routes');
+workoutRoute(app);
 app.listen(port, ()=>{
-    console.log(`app is now listening on port ${port}`);
+   console.log(`app is listening on port ${port}`);
 });
 
+module.exports = app;
