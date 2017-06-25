@@ -1,34 +1,55 @@
+const mongoose = require('mongoose');
+const mocha = require('mocha');
 const chai = require('chai');
-const chaiHttp = require('chai-http');
-const app = require('../server');
-const workoutRoutes = require('../api/routes/workout_routes');
-const faker = require('faker');
-const Workout = require('../api/models/workout_model');
-const should = require('chai').should();
+const express = require('express');
 const assert = require('assert');
-
-workoutRoutes(app);
+const Workout= require('../api/models/workout_model');
+const faker = require('faker');
+const chaiHttp = require('chai-http');
+const port = process.env.PORT || 8081;
+const testDB = 'mongodb://localhost/apollotesting';
+const should = chai.should();
+const app = express();
 chai.use(chaiHttp);
 
-function seedWorkouts(){
-    const workouts = [];
-    const name = faker.name.firstName();
-    const reps = faker.random.number();
-    const sets = faker.random.number();
+function seedData(){
+    let name = faker.commerce.color();
+    let reps = faker.random.number();
+    let sets = faker.random.number();
+    let seedWorkouts = [];
 
-    for(let i = 0; i < 5; i++){
-        workouts.push({
+    for(let i = 0; i < 4; i++){
+        seedWorkouts.push({
             name: name,
-            sets: sets,
-            reps: reps
-        });
+            reps: reps,
+            sets: sets
+        })
     }
-    Workout.insertMany(workouts);
+    Workout.insertMany(seedWorkouts);
 }
 
-function clearDB(){
+let server;
+function runServer(databaseUrl, port){
     return new Promise((resolve, reject)=>{
-        console.warn('dropping DB');
+        mongoose.connect(databaseUrl, err =>{
+            if(err){
+                return reject(err);
+            }
+            server = app.listen(port, ()=>{
+                console.log(`app is listening on port ${port}`);
+                resolve();
+            })
+                .on('error', err =>{
+                    mongoose.disconnect();
+                    reject(err);
+                })
+        })
+    })
+}
+
+function eraseDB(){
+    return new Promise((resolve, reject)=>{
+        console.warn('Deleting database');
         mongoose.connection.dropDatabase()
             .then(result => resolve(result))
             .catch(err => reject(err))
@@ -36,50 +57,87 @@ function clearDB(){
 }
 
 function closeServer(){
-    return new Promise((resolve, reject)=>{
-        console.log('Closing server');
-        app.close(err => {
-            if (err) {
-                reject(err);
-                // so we don't also call `resolve()`
-                return;
-            }
-            resolve();
+    return mongoose.disconnect()
+        .then(()=>{
+            return new Promise((resolve, reject)=>{
+                console.log('closing server');
+                server.close(err =>{
+                    if(err){
+                        return reject(err);
+                    }
+                    resolve();
+                });
+            });
         });
-    });
 }
 
-describe('test api', ()=>{
+describe('Testing workout endpoints', ()=>{
+    before(()=>{
+        return runServer(testDB);
+    });
     beforeEach(()=>{
-        seedWorkouts();
-    })
+        return seedData();
+    });
     afterEach(()=>{
-        clearDB();
+        return eraseDB();
     })
     after(()=>{
         closeServer();
     })
-    describe('/GET', ()=>{
-        it('should return all the workouts in the db', (done)=>{
+    describe('Workout get request', ()=>{
+        it('should return a list of workouts in DB', ()=>{
+            let res;
+            return Workout.count();
+        })
+    })
+    describe('Workout Post request', ()=>{
+        it('should save a workout to the DB', ()=>{
+            let res;
             chai.request(app)
-                .get('/workouts')
-                .end((err, res)=>{
-                res.should.have.status(200);
-                res.should.be.json;
-                done();
-            });
-        });
-    });
-    describe('/POST', ()=>{
-        it('should add a user to the db', (done)=>{
-            chai.request(app)
-                .post('/workouts', {name: 'benchpress', sets: 4, reps: 4})
-                .end((err, res)=>{
+                .post('/create', {name : faker.commerce.color(), reps: faker.random.number(), sets: faker.random.number()})
+                .then(_res =>{
+                    res = _res;
                     res.should.have.status(200);
+                    res.should.be.json;
+                    res.should.be.a('object');
+                    res.should.include.keys('name', 'reps', 'sets');
+                    assert.equal(count, 5);
                 })
-            done();
+        })
+    })
+    describe('Workout Put request', ()=>{
+        it('should add new workout to db for testing', ()=>{
+            let res;
+            chai.request(app)
+                .post('/create', {name : 'benchpress', reps: faker.random.number(), sets: faker.random.number()})
+        })
+        it('should find created workout and edit reps field', ()=>{
+            chai.request(app)
+                .put('/edit/:name', {name: 'benchpress', reps: 210, sets: faker.random.number()})
+                .then(_res=>{
+                    res.should.have.status(204);
+                    res.should.json;
+                    res.should.be.a('object');
+                })
+            return chai.request(app);
+        })
+    })
+    describe('Workout Delete request', ()=>{
+        it('should add new workout to the db for test', ()=>{
+            let res;
+            chai.request(app)
+                .post('/create', {name : 'benchpress', reps: faker.random.number(), sets: faker.random.number()})
+        })
+        it('should find recently created and delete it', ()=>{
+            let res;
+            chai.request(app)
+                .delete('/delete', {name: 'benchpress'})
+                .then(_res =>{
+                    res = _res;
+                    res.should.have.status(200);
+                    assert.equal(count, 4)
+                })
+            console.log('workout deleted');
         })
     })
 })
-
-
