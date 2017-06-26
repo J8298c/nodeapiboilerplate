@@ -7,9 +7,7 @@ class App extends React.Component{
     render(){
         return(
             <div>
-                <h1>Hello Julio,
-                Hello Joshua,
-                Bye Bye Brianna Banana</h1>
+                <h1>node workouts</h1>
             </div>
         )
     }
