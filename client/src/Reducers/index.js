@@ -9,12 +9,12 @@ export default (state = [], action)=> {
         const {workouts} = action;
         console.log('in reducer success');
         console.log('workouts in reducer success', workouts);
-        const new_state = Object.assign({}, state, {workouts: [workouts, ...state]})
-        return new_state;
+        return workouts;
     } else if(action.type === SET_WORKOUTS_ERROR){
         const {err} = action;
         console.log('in reducers err');
         return err;
+    }else {
+        return state;
     }
-    return state;
 }

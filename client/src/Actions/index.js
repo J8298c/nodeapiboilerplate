@@ -28,7 +28,7 @@ export function set_workouts_error(err){
 
 export function fetchingWorkouts(){
     return(dispatch)=>{
-        dispatch(set_workouts())
+        dispatch(set_workouts());
         fetch('/workouts')
             .then(res => res.json())
             .then(workouts=>{
