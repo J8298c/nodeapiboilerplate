@@ -1,9 +1,10 @@
 import {SET_WORKOUTS, SET_WORKOUTS_SUCCESS, SET_WORKOUTS_ERROR} from '../Actions/index';
 
-export default (state = [], action)=> {
+const workouts = [];
+export default (state = workouts, action)=> {
     if(action.type === SET_WORKOUTS){
         const {workouts} = action;
-        console.log('in reducer set_workout')
+        console.log('in reducer set_workout', workouts);
         return workouts;
     } else if(action.type === SET_WORKOUTS_SUCCESS){
         const {workouts} = action;
@@ -14,7 +15,6 @@ export default (state = [], action)=> {
         const {err} = action;
         console.log('in reducers err');
         return err;
-    }else {
-        return state;
     }
+        return state;
 }

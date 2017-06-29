@@ -18,7 +18,9 @@ setWorkouts(e){
     this.props.fetchingWorkouts()
 }
     render(props){
-    console.log(this.props.workouts, 'the props');
+    console.log(this.props, 'the props');
+    const workouts = this.props.state;
+    console.log(workouts);
         return(
             <div>
                 <h1>node workouts</h1>
@@ -31,8 +33,10 @@ setWorkouts(e){
 }
 
 function mapStateToProps(state){
-    console.log(state);
-    return state;
+    console.log(state, 'the state');
+    return {
+        state
+    }
 }
 
 function mapDispatchToProps(dispatch){

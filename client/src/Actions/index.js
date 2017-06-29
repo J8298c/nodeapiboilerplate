@@ -31,8 +31,8 @@ export function fetchingWorkouts(){
         dispatch(set_workouts());
         fetch('/workouts')
             .then(res => res.json())
-            .then(workouts=>{
-                dispatch(set_workouts_success(workouts))
+            .then(json=>{
+                dispatch(set_workouts_success(json))
             })
             .catch(()=>dispatch(set_workouts_error()))
     }
