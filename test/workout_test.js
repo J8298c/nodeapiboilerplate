@@ -50,7 +50,7 @@ function runServer(databaseUrl, port){
 function eraseDB(){
     return new Promise((resolve, reject)=>{
         console.warn('Deleting database');
-        mongoose.connection.dropDatabase()
+        mongoose.connection.db.dropDatabase()
             .then(result => resolve(result))
             .catch(err => reject(err))
     });

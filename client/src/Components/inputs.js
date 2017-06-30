@@ -1,11 +1,13 @@
-import React, {Components} from 'react';
+/**
+ * Created by juliomojica on 6/29/17.
+ */
+import {Component} from 'react';
 
 export default (props)=>{
-  return (
-    <div>
-      <input className={this.props.className}
-        type={this.props.type}
-        placeholder={this.props.placeholder} />
-    </div>
-  )
+    return(
+        <div>
+            <input type={this.props.type} className={this.props.className}
+                   placeholder={this.props.placeholder} />
+        </div>
+    )
 }

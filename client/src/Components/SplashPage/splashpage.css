@@ -1,0 +1,12 @@
+.landing-page {
+    background: linear-gradient(0deg,rgba(49, 62, 82, 0.9),rgba(49, 62, 82, 0.9)), url('../../images/brooklyn_bridge.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.landing-page h1 {
+    text-align: center;
+    color: #E4EBF1;
+    font-size: 84px;
+    margin-top: -100px;
+}

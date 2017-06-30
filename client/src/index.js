@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Routes from './routes';
-import registerServiceWorker from './registerServiceWorker';
 import './index.css';
+import SplashPage from './Components/SplashPage/SplashPage';
+import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(Routes, document.getElementById('root'));
+ReactDOM.render(<SplashPage />, document.getElementById('root'));
 registerServiceWorker();

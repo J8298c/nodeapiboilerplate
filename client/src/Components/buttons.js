@@ -1,9 +1,12 @@
-import React, {Components} from 'react';
+/**
+ * Created by juliomojica on 6/29/17.
+ */
+import React, {Component} from 'react';
 
-export default (props)=>{
-  return(
-    <button className={this.props.className}>
-      {this.props.text}
-    </button>
-  )
+export default ()=>{
+    return (
+        <button className={this.props.className} onClick={this.props.onClick}>
+            {this.props.text}
+        </button>
+    )
 }
