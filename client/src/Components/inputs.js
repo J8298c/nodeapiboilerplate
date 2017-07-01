@@ -1,7 +1,7 @@
 /**
  * Created by juliomojica on 6/29/17.
  */
-import {Component} from 'react';
+import React, {Component} from 'react';
 
 export default (props)=>{
     return(
