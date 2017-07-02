@@ -1,22 +1,23 @@
 import React, {Component} from 'react';
 import input from '../inputs';
-import buttons from '../buttons';
+import button from '../buttons';
 import './loginpage.css';
 
-class LoginPage extends Component {
+class Signup extends Component {
     constructor(props){
         super(props);
     }
     render(){
         return(
-            <div className="login-page">
+            <div className="signup-page">
                 <h1 className="app-title">Apollo</h1>
                 <h5 className="app-description">Personal Fitness Logger</h5>
-                <form action="#">
-                   <input type="text" placeholder="Enter your email" />
-                   <input type="password" placeholder="Enter your password" />
+                <form className="signup-form">
+                    <input type="text" placeholder="Enter your email" />
+                    <input type="password" placeholder="Enter your password" />
+                    <input type="text" placeholder="Enter a usename" className="username-signup" />
                     <buttons className="mdl-button mdl-js-button mdl-button--raised loginbutton app-button">
-                        Login
+                    Signup
                     </buttons>
                 </form>
             </div>
@@ -24,4 +25,4 @@ class LoginPage extends Component {
     }
 }
 
-export default LoginPage;
+export default Signup;

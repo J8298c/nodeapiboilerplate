@@ -6,8 +6,8 @@ import React, {Component} from 'react';
 export default (props)=>{
     return(
         <div>
-            <input type={this.props.type} className={this.props.className}
-                   placeholder={this.props.placeholder} />
+            <input type={props.type} className={props.className}
+                   placeholder={props.placeholder} />
         </div>
     )
 }
