@@ -1,9 +1,9 @@
 .login-page {
   width: 100%;
-  background: -webkit-gradient(linear, left bottom, left top, from(rgba(49, 62, 82, 0.9)), to(rgba(49, 62, 82, 0.9))), url(/static/media/login.3faf7d9f.jpg) center center no-repeat;
-  background: -webkit-linear-gradient(bottom, rgba(49, 62, 82, 0.9), rgba(49, 62, 82, 0.9)), url(/static/media/login.3faf7d9f.jpg) center center no-repeat;
-  background: -o-linear-gradient(bottom, rgba(49, 62, 82, 0.9), rgba(49, 62, 82, 0.9)), url(/static/media/login.3faf7d9f.jpg) center center no-repeat;
-  background: linear-gradient(0deg, rgba(49, 62, 82, 0.9), rgba(49, 62, 82, 0.9)), url(/static/media/login.3faf7d9f.jpg) center center no-repeat;
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(49, 62, 82, 0.9)), to(rgba(49, 62, 82, 0.9))), url("../../images/login.jpg") center center no-repeat;
+  background: -webkit-linear-gradient(bottom, rgba(49, 62, 82, 0.9), rgba(49, 62, 82, 0.9)), url("../../images/login.jpg") center center no-repeat;
+  background: -o-linear-gradient(bottom, rgba(49, 62, 82, 0.9), rgba(49, 62, 82, 0.9)), url("../../images/login.jpg") center center no-repeat;
+  background: linear-gradient(0deg, rgba(49, 62, 82, 0.9), rgba(49, 62, 82, 0.9)), url("../../images/login.jpg") center center no-repeat;
   background-size: cover;
   position: absolute;
   top: 0;
