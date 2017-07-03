@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import Workouts from './Workouts';
-import bindActionsCreator from 'redux';
+import { bindActionCreators } from 'redux';
+import {fetchingWorkouts} from '../../Actions/index';
+import {connect} from 'react-redux';
 
 class WorkoutContainer extends Component {
     componentWillMount(props){
-        //call async dispatch to fetch workouts
+       this.props.fetchingWorkouts;
     }
     constructor(props){
         super(props);
@@ -12,7 +14,7 @@ class WorkoutContainer extends Component {
             workouts: []
         }
     }
-    render(){
+    render(props){
         return (
             <div>
                 <Workouts />
@@ -22,5 +24,6 @@ class WorkoutContainer extends Component {
 
 }
 function mapDispatchToProps(dispatch){
-//add dispatch
+    return bindActionCreators({fetchingWorkouts}, dispatch)
 }
+export default connect(mapDispatchToProps)(WorkoutContainer);

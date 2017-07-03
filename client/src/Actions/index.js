@@ -24,3 +24,17 @@ export function fetchWorkoutsError(response){
     }
     return action;
 }
+
+export const fetchingWorkouts = () => {
+    return (dispatch) => {
+        fetch('/workouts', {method: 'GET'})
+        .then((response)=>{
+            return response;
+        })
+        .then(response => response.json())
+        .then(json =>{
+            console.log(json);
+            dispatch(fetchWorkoutsSuccess(json))
+        }).catch(()=> dispatch(fetchWorkoutsError()))
+    }
+};
