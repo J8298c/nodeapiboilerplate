@@ -28,17 +28,21 @@ export const fetchWorkoutError = (error)=>{
     return action;
 }
 
-export function getWorkouts(workouts){
-    return (dispatch)=>{
-        dispatch(fetchWorkouts())
-        return fetch('/workouts')
-        .then(
-            response => response.json(),
-            error => console.log('An error has occured', error)
-        )
-        .then(
-            json => 
-            dispatch(fetchWorkoutsSuccess(workouts))
-        )
+export const getWorkouts = (response)=>{
+    return (dispatch) => {
+        dispatch(fetchWorkouts(response))
+        fetch('/workouts', {method: 'GET'})
+        .then((response)=>{
+            if(!response.ok){
+                throw Error(response.statusText)
+            }
+            return response;
+        })
+        .then((response)=> response.json())
+        .then(json => {
+            setTimeout(()=>{
+                dispatch(fetchWorkoutsSuccess(json))
+            }, 1000)
+        }).catch(()=>{dispatch(fetchWorkoutError())})
     }
 }
