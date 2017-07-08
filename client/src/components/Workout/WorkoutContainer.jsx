@@ -2,26 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Workouts from './Workouts';
-import { fetchWorkouts } from '../../actions/index';
+import { getWorkouts } from '../../actions/index';
 
 class WorkoutContainer extends Component {
   constructor(props) {
     super(props);
     this.props.getWorkouts();
   }
-  render(props) {
-    const workout = [{
-      name: 'Bench Press',
-      sets: 4,
-      reps: 10,
-    },
-    {
-      name: 'Squats',
-      sets: 3,
-      reps: 10,
-    }];
+  render() {
+    const { workouts } = this.props.state;
     let key = 0;
-    const workoutCard = workout.map((excersise) => 
+    const workoutCard = workouts.map((excersise) => 
       (<Workouts 
         name={excersise.name} sets={excersise.sets}
         reps={excersise.reps} key={key++}
@@ -40,7 +31,7 @@ function mapStateToProps(state) {
   };
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchWorkouts }, dispatch);
+  return bindActionCreators({ getWorkouts }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutContainer);

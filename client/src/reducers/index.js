@@ -6,7 +6,6 @@ const workoutReducer = (state = [], action) => {
   } else if (action.type === FETCH_WORKOUTS_SUCCESS) {
     const { workouts } = action;
     const newState = Object.assign({}, state, { workouts });
-    console.log(newState, 'returned new state');
     return newState;
   } else if (action.type === FETCH_WORKOUTS_ERROR) {
     return action.error;
