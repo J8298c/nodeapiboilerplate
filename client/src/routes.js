@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import WorkoutContainer from './components/WorkoutContainer';
+import Workout from './components/Workout'
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import workoutReducer from './reducers/index';
@@ -16,7 +17,10 @@ const store = createStore(workoutReducer, initialState, applyMiddleware(thunk));
 const routes = (
     <Provider store={store}>
         <Router>
-            <Route path="/" component={WorkoutContainer} />
+            <div>
+                <Route path="/" component={WorkoutContainer} />
+                <Route path="/:name" component={Workout} />
+            </div>
         </Router>
     </Provider>
 )
