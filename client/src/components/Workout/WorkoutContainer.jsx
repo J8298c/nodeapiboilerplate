@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Workouts from './Workouts';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Workouts from './Workouts';
 import { fetchWorkouts } from '../../actions/index';
 
 class WorkoutContainer extends Component {
