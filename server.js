@@ -9,6 +9,14 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/thunderhammer');
@@ -19,8 +27,8 @@ const userRoute = require('./api/routes/user_routes');
 workoutRoute(app);
 userRoute(app, passport);
 
-app.listen(port, ()=>{
-   console.log(`app is listening on port ${port}`);
+app.listen(port, () => {
+  console.log(`app is listening on port ${port}`);
 });
 
-module.exports = app;
+module.exports = { app, passport };

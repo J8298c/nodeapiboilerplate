@@ -2,14 +2,14 @@ const User = require('../models/user_model');
 const passport = require('passport');
 
 exports.add_a_user = (passport.authenticate('local-signup', {
-  successRedirect: '/users/profile',
-  failureRedirect: '/users/signup',
+  successRedirect: '/profile',
+  failureRedirect: '/signup',
   failureFlash: true,
 }));
 
 exports.get_a_user = (passport.authenticate('local-login', {
-  successRedirect: '/users/profile',
-  failureRedirect: '/users/login',
+  successRedirect: '/profile',
+  failureRedirect: '/login',
   failureFlash: true,
 }));
 
@@ -21,4 +21,8 @@ exports.delete_a_user = (req, res) => {
       console.log('user deleted');
     }
   });
+};
+
+exports.go_to_profile = (req, res) => {
+  res.send('user profile page');
 };
