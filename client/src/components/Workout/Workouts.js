@@ -1,12 +1,10 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router';
+import React, { Component } from 'react';
+import { Link } from 'react-router';
 
-
-class Workout extends Component{
-    render(props){
-        const workoutLink = `/${this.props.name}`;
-        console.log(props, 'the props');
-        return(
+class Workout extends Component {
+  render(props){
+    const workoutLink = `/${this.props.name}`;
+    return (
             <div>        
                 <Link to={workoutLink}>
                     <h1>{this.props.name}</h1>
@@ -14,8 +12,8 @@ class Workout extends Component{
                 <p>{this.props.sets}</p>
                 <p>{this.props.reps}</p>
             </div>
-        )
-    }
+    );
+  }
 }
 
 export default Workout;
