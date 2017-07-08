@@ -6,12 +6,19 @@ import {createStore, applyMiddleware} from 'redux';
 import workoutReducer from './reducers/index';
 import thunk from 'redux-thunk';
 
+const initialState = {
+    workouts: [],
+    user: null
+}
 
+const store = createStore(workoutReducer, initialState, applyMiddleware(thunk));
 
 const routes = (
-    <Router>
-        <Route path="/" component={WorkoutContainer} />
-    </Router>
+    <Provider store={store}>
+        <Router>
+            <Route path="/" component={WorkoutContainer} />
+        </Router>
+    </Provider>
 )
 
 export default routes;
