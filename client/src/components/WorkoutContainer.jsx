@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import Workouts from './Workouts';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {getWorkouts} from '../actions/index.js';
+
 class WorkoutContainer extends Component{
     render(props){
         const workout = [{
@@ -24,4 +28,14 @@ class WorkoutContainer extends Component{
     }
 }
 
-export default WorkoutContainer;
+function mapStateToProps(state){
+    console.log(state, 'state in store at workout container')
+    return {
+        state
+    }
+}
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({getWorkouts}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorkoutContainer);
