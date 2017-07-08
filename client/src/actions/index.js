@@ -30,7 +30,6 @@ export const fetchWorkoutError = (error)=>{
 
 export const getWorkouts = (response)=>{
     return (dispatch) => {
-        dispatch(fetchWorkouts(response))
         fetch('/workouts', {method: 'GET'})
         .then((response)=>{
             if(!response.ok){
