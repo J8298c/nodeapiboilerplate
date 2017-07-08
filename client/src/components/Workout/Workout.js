@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-
 class Workout extends Component{
     componentWillMount(props){
         const findWorkoutUrl = `/workouts/${this.props.params.name}`

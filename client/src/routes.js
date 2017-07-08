@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Router, Route, browserHistory} from 'react-router';
-import WorkoutContainer from './components/WorkoutContainer';
-import Workout from './components/Workout'
+import WorkoutContainer from './components/Workout/WorkoutContainer';
+import Workout from './components/Workout/Workout';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import workoutReducer from './reducers/index';

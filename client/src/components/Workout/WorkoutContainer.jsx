@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Workouts from './Workouts';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {getWorkouts} from '../actions/index.js';
+import {getWorkouts} from '../../actions/index';
 
 class WorkoutContainer extends Component{
     render(props){
