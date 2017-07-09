@@ -13,8 +13,8 @@ exports.get_a_user = (passport.authenticate('local-login', {
   failureFlash: true,
 }));
 
-exports.delete_a_user = (req, res) => {
-  User.findOneAndRemove({ email: req.params.email }, (err, message) => {
+exports.delete_a_user = (req) => {
+  User.findOneAndRemove({ email: req.params.email }, (err) => {
     if (err) {
       console.error(err);
     } else {

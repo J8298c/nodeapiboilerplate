@@ -105,7 +105,6 @@ module.exports = function (passport) {
             user.email = email;
             user.password = user.generateHash(password);
             user.displayname = displayname;
-            console.log(user.displayname, 'this is the user displayname')
             user.save(function (err) {
               if (err)
                 return done(err);
