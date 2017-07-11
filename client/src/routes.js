@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import WorkoutContainer from './components/Workout/WorkoutContainer';
 import Workout from './components/Workout/Workout';
-import workoutReducer from './reducers/index';
+import rootReducer from './reducers/index';
 import { Login, SignUp } from './components/Authentication/exporter';
 
 const initialState = {
@@ -13,7 +13,7 @@ const initialState = {
   user: null,
 };
 
-const store = createStore(workoutReducer, initialState, applyMiddleware(thunk));
+const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
 
 const routes = (
     <Provider store={store}>

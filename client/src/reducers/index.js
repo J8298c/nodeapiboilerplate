@@ -1,17 +1,11 @@
-import { FETCH_WORKOUTS, FETCH_WORKOUTS_SUCCESS, FETCH_WORKOUTS_ERROR } from '../actions/index';
+import { combineReducers } from 'redux';
 
-const workoutReducer = (state = [], action) => {
-  if (action.type === FETCH_WORKOUTS) {
-    return action.response;
-  } else if (action.type === FETCH_WORKOUTS_SUCCESS) {
-    const { workouts } = action;
-    const newState = Object.assign({}, state, { workouts });
-    return newState;
-  } else if (action.type === FETCH_WORKOUTS_ERROR) {
-    return action.error;
-  }
-    
-  return state;
-};
+import userReducer from './userreducer';
+import workoutReducer from './workoutreducer';
 
-export default workoutReducer;
+const rootReducer = combineReducers({
+    userReducer,
+    workoutReducer
+})
+
+export default rootReducer;
