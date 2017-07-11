@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import WorkoutContainer from './components/Workout/WorkoutContainer';
 import Workout from './components/Workout/Workout';
 import workoutReducer from './reducers/index';
+import { Login, SignUp } from './components/Authentication/exporter';
 
 const initialState = {
   workouts: [],
@@ -18,7 +19,9 @@ const routes = (
     <Provider store={store}>
         <Router history={browserHistory}>
                 <Route path="/" component={WorkoutContainer} />
-                <Route path="/:name" component={Workout} />
+                <Route path="/workouts/:name" component={Workout} />
+                <Route path="/login" component={Login} />
+                <Route path="/SignUp" component={SignUp} />
         </Router>
     </Provider>
 );

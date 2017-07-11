@@ -42,3 +42,21 @@ export const getWorkouts = (response) => {
         }).catch(() => { dispatch(fetchWorkoutError()); });
   };
 };
+
+export const USER_LOGIN = 'USER_LOGIN';
+export const userLogin = (user) => {
+  const action = {
+    type: USER_LOGIN,
+    user,
+  };
+  return action;
+};
+
+export const USER_SIGNUP = 'USER_SIGNUP';
+export const userSignup = (user) => {
+  const action = {
+    type: USER_SIGNUP,
+    user,
+  };
+  return action;
+};
