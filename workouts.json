@@ -1,0 +1,52 @@
+[
+    {
+        "name": "treadmill",
+        "sets": "1",
+        "reps": "10"
+    },
+    {
+        "name": "Pullups",
+        "sets": "3",
+        "reps": "5"
+    },
+    {
+        "name": "Squat",
+        "sets": "3",
+        "reps": "15"
+    },
+    {
+        "name": "Lat Pulldowns",
+        "sets": "6",
+        "reps": "15"
+    },
+    {
+        "name": "Dumbell Rows",
+        "sets": "5",
+        "reps": "12"
+    },
+    {
+        "name": "Barbell Curls",
+        "sets": "6",
+        "reps": "15"
+    },
+    {
+        "name": "Dumbell Concentration Curls",
+        "sets": "3",
+        "reps": "10"
+    },
+    {
+        "name": "Situps",
+        "sets": "1",
+        "reps": "100"
+    },
+    {
+        "name": "Crunches",
+        "sets": "1",
+        "reps": "100"
+    },
+    {
+        "name": "Side Crunches",
+        "sets": "1",
+        "reps": "100"
+    }
+]
